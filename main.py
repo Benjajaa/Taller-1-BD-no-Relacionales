@@ -4,7 +4,7 @@ import json
 
 app = FastAPI(title="Taller BD NoSQL - ClaveValor", description="CRUD usando la BD DBM (Key-Value)")
 
-# DBM creará automáticamente un archivo local para guardar tus datos persistentes
+# DBM creará automáticamente un archivo local para guardar los datos persistentes
 DB_NAME = "mi_base_clave_valor"
 
 # CREATE
@@ -13,8 +13,7 @@ def crear_item(key: str, data: dict):
     with dbm.open(DB_NAME, 'c') as db:
         if key.encode('utf-8') in db:
             raise HTTPException(status_code=400, detail="La clave ya existe")
-        
-        # Guardamos el diccionario como un string JSON
+            
         db[key] = json.dumps(data)
     return {"mensaje": "Creado exitosamente", "clave": key, "valor": data}
 
